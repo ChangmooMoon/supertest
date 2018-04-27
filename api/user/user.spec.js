@@ -32,7 +32,7 @@ describe('GET /users는', () => {
 })
 
 describe('GET /users/1은', () => {
-  describe('Success!', () => {
+  describe('성공시', () => {
     it('id가 1인 유저 객체를 반환한다', (done) => {
       request(app)
         .get('/users/1')
@@ -42,7 +42,7 @@ describe('GET /users/1은', () => {
         })
     })
   })
-  describe('Fail!', () => {
+  describe('실패시', () => {
     it('id가 숫자가 아닐 경우 400으로 응답', (done) => {
       request(app)
         .get('/users/one')
@@ -92,10 +92,10 @@ describe('POST /users 는', () => {
           done()
         })
     })
-    it('2. 생성된 유저 객체를 반환한다', () => {
+    it('생성된 유저 객체를 반환한다', () => {
       body.should.have.property('id')
     })
-    it('3. 입력한 name을 반환한다', () => {
+    it('입력한 name을 반환한다', () => {
       body.should.have.property('name', name)
     })
   })
