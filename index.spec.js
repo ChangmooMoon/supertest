@@ -50,11 +50,22 @@ describe('GET /users/1은', () => {
         .end(done)
     })
   })
-  it('id로 유저를 찾을 수 없을 경우 404로 응답한다', (done) => {
+  it('2. id로 유저를 찾을 수 없을 경우 404로 응답한다', (done) => {
     request(app)
       .get('/users/999')
       .expect(404)
       .end(done)
+  })
+})
+
+describe('DELELTE /users/1은', () => {
+  describe('성공시', () => {
+    it('204를 응답한다', (done) => {
+      request(app)
+        .delete('/users/1')
+        .expect(204)
+        .end(done)
+    })
   })
 })
 
