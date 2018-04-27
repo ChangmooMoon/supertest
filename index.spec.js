@@ -77,3 +77,26 @@ describe('DELELTE /users/1은', () => {
   })
 })
 
+describe('POST /users 는', () => {
+  describe('성공시 1. 201상태코드 반환', () => {
+    let
+      body,
+      name = 'daniel'
+    before((done) => {
+      request(app)
+        .post('/users')
+        .send({ name })
+        .expect(201)
+        .end((err, res) => {
+          body = res.body
+          done()
+        })
+    })
+    it('2. 생성된 유저 객체를 반환한다', () => {
+      body.should.have.property('id')
+    })
+    it('3. 입력한 name을 반환한다', () => {
+      body.should.have.property('name', name)
+    })
+  })
+})

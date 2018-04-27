@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
+const bodyParser = require('body-parser')
 let users = [
   { id: 1, name: 'alice' },
   { id: 2, name: 'betty' },
@@ -8,6 +9,8 @@ let users = [
 ]
 
 app.use(morgan('dev'))
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application
 
 app.get('/users', (req, res) => {
   req.query.limit = req.query.limit || 10
@@ -32,6 +35,14 @@ app.delete('/users/:id', (req, res) => {
   if (Number.isNaN(id)) return res.status(400).end()
   users = users.filter(user => user.id !== id) // 조건에 맞는 새로운 배열을 원래 배열에 대입
   res.status(204).end()
+})
+
+app.post('/users', (req, res) => {
+  const name = req.body.name
+  const id = Date.now()
+  const user = { id, name }
+  users.push(user)
+  res.status(201).json(user)
 })
 
 app.listen(3000, () => {
