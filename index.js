@@ -29,6 +29,7 @@ app.get('/users/:id', (req, res) => {
 
 app.delete('/users/:id', (req, res) => {
   const id = parseInt(req.params.id, 10)
+  if (Number.isNaN(id)) return res.status(400).end()
   users = users.filter(user => user.id !== id) // 조건에 맞는 새로운 배열을 원래 배열에 대입
   res.status(204).end()
 })
