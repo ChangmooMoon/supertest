@@ -42,4 +42,19 @@ describe('GET /users/1은', () => {
         })
     })
   })
+  describe('Fail!', () => {
+    it('1. id가 숫자가 아닐 경우 400으로 응답', (done) => {
+      request(app)
+        .get('/users/one')
+        .expect(400)
+        .end(done)
+    })
+  })
+  it('id로 유저를 찾을 수 없을 경우 404로 응답한다', (done) => {
+    request(app)
+      .get('/users/999')
+      .expect(404)
+      .end(done)
+  })
 })
+
